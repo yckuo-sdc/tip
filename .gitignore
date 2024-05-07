@@ -33,7 +33,7 @@ package-lock.json
 demo.*
 
 # igonre log file
-*log*
+*.log*
 
 # igonre sql file
 *.sql
