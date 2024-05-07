@@ -37,3 +37,6 @@ demo.*
 
 # igonre sql file
 *.sql
+
+# igonre cache file
+*.cache
