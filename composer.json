@@ -1,0 +1,37 @@
+{
+    "name": "yckuo/sdc",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "YuChieh Kuo",
+            "email": "yckuo@nics.nat.gov.tw",
+            "role": "Developer"
+        }
+    ],
+	"description": "A simple web console for information security.",
+    "require": {
+        "google/apiclient":"^2.12.1",
+        "wixel/gump": "^1.2",
+		"phpmailer/phpmailer": "^6.5",
+		"tamtamchik/simple-flash": "^2.0.0",
+        "vlucas/phpdotenv": "^5.2",
+        "phpoffice/phpspreadsheet": "^1.23",
+        "twig/twig": "^3.0"
+	},
+	"autoload": {
+		"classmap": [
+			"config",
+			"libraries",
+            "action",
+            "validators"
+		],
+		"files": [
+			"helpers/functions.php"
+		]
+	},
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    }
+}

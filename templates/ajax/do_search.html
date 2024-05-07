@@ -1,0 +1,39 @@
+{{ flash|raw }}
+<h3 class="ui header">Accordion Layout</h3>
+<div class="ui styled fluid accordion">
+  <div class="title">
+    <i class="dropdown icon"></i>
+    Shodan
+    <div class="ui right floated label">{{ intel_results.shodan.count }}</div>
+  </div>
+  <div class="content">
+    <pre style="white-space: pre-wrap">
+        {{ intel_results.shodan.data|json_encode(constant('JSON_PRETTY_PRINT') b-or constant('JSON_UNESCAPED_SLASHES')) }}
+        </pre
+    >
+  </div>
+  <div class="title">
+    <i class="dropdown icon"></i>
+    VirusTotal
+    <div class="ui right floated label">0</div>
+  </div>
+  <div class="content">
+    <p>The description for VirusTotal.</p>
+  </div>
+  <div class="title">
+    <i class="dropdown icon"></i>
+    Censys
+    <div class="ui right floated label">0</div>
+  </div>
+  <div class="content">
+    <p>The description for Censys.</p>
+  </div>
+  <div class="title">
+    <i class="dropdown icon"></i>
+    Mandiant
+    <div class="ui right floated label">0</div>
+  </div>
+  <div class="content">
+    <p>The description for Mandiant.</p>
+  </div>
+</div>

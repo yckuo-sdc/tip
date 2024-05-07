@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "prettier": "3.2.5"
+  },
+  "dependencies": {
+    "jquery": "^3.7.1"
+  }
+}

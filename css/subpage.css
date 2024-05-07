@@ -1,0 +1,143 @@
+/*
+.post_block
+{
+	
+}
+*/
+.post_title
+{
+	/*font-size: 3vmin;*/
+    margin: calc(2rem - 0.14285714em ) 0em 1rem;
+    font-size: 1.28571429rem;
+    font-weight: bold;
+	/*padding-bottom: 3%;*/
+    color: rgba(0,0,0,.87);
+}
+
+.post_title:first-child {
+    margin-top: -0.14285714em;
+}
+
+.post_cell
+{
+	padding-bottom: 3%;
+	/*font-size: 2vmin;*/
+}
+
+.post_cell:last-child
+{
+	padding-bottom: 0;
+	/*text-align:center;*/
+}
+
+.post_cell img
+{
+	width:100% !important;
+}
+
+.post_cell table img
+{
+	width:auto !important;
+}
+
+.post_cell .chart
+{
+	width:100%;
+	padding:1px !important;
+}
+
+.post_cell ol { 
+	counter-reset: item ;
+}
+
+.post_cell li{ 
+	display: block;
+}
+
+/*.post_cell li:hover{ 
+    background-color: #bec1c7;
+}*/
+
+
+.post_cell li:before {
+	 content: counters(item, "-") " "; 
+	 counter-increment: item;
+}
+.post_cell .item.hide .content > .list{ 
+	display: none; 
+}
+
+.post_cell button{
+   margin: 0.25em 0.25em 0em 0em!important;
+}
+
+
+.post_cell img.img_auto
+{
+	/*width:auto;*/
+}
+
+.table1
+{
+
+}
+
+a
+{
+	text-decoration:none; !important
+}
+
+#activity_img1 {
+	background-image: url("uploads_activity/act1.jpg");
+}
+
+#activity_img2 {
+	background-image: url("uploads_activity/act2.jpg");
+}
+
+
+#activity_img3 {
+	background-image: url("uploads_activity/act3.jpg");
+}
+
+#activity_img4 {
+	background-image: url("uploads_activity/act4.jpg");
+}
+
+#op1 {
+	background-image: url("uploads_activity/op1.jpg");
+}
+
+#op2 {
+	background-image: url("uploads_activity/op2.jpg");
+}
+
+#op3 {
+	background-image: url("uploads_activity/op3.jpg");
+}
+
+#op4 {
+	background-image: url("uploads_activity/op4.jpg");
+}
+#op5 {
+	background-image: url("uploads_activity/op5.jpg");
+}
+
+
+.ppt_img{
+	width: 735px;
+	height:716px;
+	background-size: 735px 716px;
+	margin:5px;
+}
+
+.ppt_img2{
+	width: 735px;
+	height:551px;
+	background-size: 735px 551px;
+	margin:5px;
+}
+
+.ui.pagination.menu{
+	max-width:100%;
+}
