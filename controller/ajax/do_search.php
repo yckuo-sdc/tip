@@ -3,7 +3,7 @@
 require_once __DIR__ .'/../../vendor/autoload.php';
 // Sanitizes data and converts strings to UTF-8 (if available), according to the provided field whitelist
 $whitelist = array("query");
-$_GET = $gump->sanitize($_GET, $whitelist);
+$_POST = $gump->sanitize($_POST, $whitelist);
 
 foreach ($_POST as $postKey => $val) {
     $$postKey = $val;
@@ -24,7 +24,7 @@ foreach ($intelSources as $intelSource) {
 }
 
 #var_dump($intelResults);
-echo "Results";
+echo "Raw results";
 $jsonString = json_encode($intelResults, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 $render = "<pre style='white-space: pre-wrap'>" . $jsonString . "</pre>";
 $flash->success($render);

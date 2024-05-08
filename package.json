@@ -1,8 +1,10 @@
 {
   "devDependencies": {
+    "htmlhint": "^1.1.4",
     "prettier": "3.2.5"
   },
   "dependencies": {
-    "jquery": "^3.7.1"
+    "jquery": "^3.7.1",
+    "jquery-tablesort": "^0.0.11"
   }
 }
