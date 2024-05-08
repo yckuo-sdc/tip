@@ -1,2 +1,2 @@
 ![GitHub Logo](images/logo.png)
-# tip
+# Threat Intelligence Portal
