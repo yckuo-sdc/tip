@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 {{ flash|raw }}
 <h3 class="ui header">Accordion Layout</h3>
 <div class="ui styled fluid accordion">
@@ -8,10 +8,7 @@
     <div class="ui right floated label">{{ intel_results.shodan.count }}</div>
   </div>
   <div class="content">
-    <pre style="white-space: pre-wrap">
-        {{ intel_results.shodan.data|json_encode(constant('JSON_PRETTY_PRINT') b-or constant('JSON_UNESCAPED_SLASHES')) }}
-        </pre
-    >
+    <p style="white-space: pre-wrap">{{ intel_results.shodan.data|json_encode(constant('JSON_PRETTY_PRINT') b-or constant('JSON_UNESCAPED_SLASHES')) }}</p>
   </div>
   <div class="title">
     <i class="dropdown icon"></i>
