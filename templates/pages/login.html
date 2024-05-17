@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ parent() }}
+{% endblock %}
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+{% block content %}
+    <div id="page" class="container">
+        <div id="content">
+            <div class="sub-content show">
+                <div class="post">
+                    {{ route.createBreadcrumbs(' &gt; ')|raw }}
+                    <h2 class="ui dividing header">修改密碼</h2>
+                    <div class="ui column center aligned">
+                        {{ flash|raw }}
+                        <form class="ui form" action="/do_password" method="post">
+                            <input type="hidden" name="username" value="{{ session.username }}" />
+                            <div class="field">
+                                <label>Current Password</label>
+                                <input type="password" name="current_password" placeholder="Current Password" required />
+                            </div>
+                            <div class="field">
+                                <label>New Password</label>
+                                <input type="password" name="new_password" placeholder="New Password" required />
+                            </div>
+                            <div class="field">
+                                <label>Confirm Password</label>
+                                <input type="password" name="confirm_password" placeholder="Confirm Password" required />
+                            </div>
+                            <button name="submit" class="ui button" type="submit">Save</button>
+                        </form>
+                    </div>
+                </div><!--End of post-->
+            </div><!--End of sub-content-->
+            <div style="clear: both;"></div>
+        </div><!-- end #content -->
+    </div> <!--end #page-->
+    {# unset(session.error) #}
+{% endblock %}

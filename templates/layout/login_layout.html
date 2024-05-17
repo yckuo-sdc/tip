@@ -1,4 +1,13 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
+
+{% block head %}
+    {{ parent() }}
+    <link href="/css/login.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block body_css %}non_pushable{% endblock %}
+
+{% block content %}
 	<div class="ui middle aligned center aligned grid">
 	  <div class="column">
 		<h2 class="ui nics-blue image header">
@@ -51,3 +60,4 @@
 	  </div>
 	</div>
     {# unset($_SESSION["error"]); #}
+{% endblock %}
