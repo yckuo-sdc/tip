@@ -6,6 +6,6 @@ if(!$userValidator->isLogin()) {
 }
 
 /**
- * Load page 
+ * Load page
  */
-echo $twig->render('pages/change_password.html', ['menu_items' => Menu::ITEM_ARRAY, 'session' => $_SESSION, 'route' => $route]);
+echo $twig->render('pages/change_password.html', ['menu_items' => Menu::ITEM_ARRAY, 'session' => $_SESSION, 'route' => $route, 'flash' => $flash]);
