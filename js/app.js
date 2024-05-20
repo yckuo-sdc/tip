@@ -579,6 +579,7 @@ $(document).ready(function(){
 	$('.pusher, .no_pusher').on('click', function(){
 		$('#toc.ui.left.sidebar').removeClass('overlay visible');			
  	});
+
 	
 	$('#sidebar a').css('text-decoration','none');
 

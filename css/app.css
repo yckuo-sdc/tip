@@ -630,6 +630,7 @@ div.header a {
 }
 #example .sidebar.menu .logo.image,
 #example .ui.menu .logo.image {
+  display: inline-block;
   width: 35px;
   margin-right: 1em;
 }
@@ -654,10 +655,6 @@ div.header a {
 @media only screen and (min-width: 700px) {
   #example .fixed.main.menu {
     display: none;
-  }
-
-  #example #page {
-    padding-top: 3em;
   }
 }
 /*
