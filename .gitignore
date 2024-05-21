@@ -10,11 +10,12 @@
 doc/**/*.txt
 
 # ignore directory
-config/
-upload/
-vendor/
-node_modules/
-hackable/
+/config/
+/upload/
+/vendor/
+/node_modules/
+/hackable/
+/var/
 
 # ignore all sub files
 *.inc.php

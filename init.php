@@ -14,7 +14,9 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);  //Loads environment variable
 $dotenv->load();
 
 $loader = new \Twig\Loader\FilesystemLoader(__DIR__ .'/templates');
-$twig = new \Twig\Environment($loader);
+$twig = new \Twig\Environment($loader, [
+    'cache' => __DIR__ .'/var/cache',
+]);
 
 
 $db = Database::get();
