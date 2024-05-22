@@ -1,11 +1,11 @@
 # ignore directory
-/bin/
-/config/
-/upload/
-/vendor/
-/node_modules/
-/hackable/
-/var/
+bin/
+config/
+upload/
+vendor/
+node_modules/
+hackable/
+var/
 
 # ignore all sub files
 *.inc.php

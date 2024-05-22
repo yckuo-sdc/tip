@@ -1,6 +1,7 @@
 <?php
 
 date_default_timezone_set('Asia/Taipei');
+define('SRC_PATH', __DIR__ . '/../src/');
 
 $route = new Router(Request::uri());  //搭配 .htaccess 排除資料夾名稱後解析 URL
 
