@@ -20,14 +20,17 @@
         "bramus/router": "~1.6"
 	},
 	"autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        },
 		"classmap": [
 			"config",
-			"libraries",
-            "action",
-            "validators"
+			"src/libraries",
+            "src/action",
+            "src/validators"
 		],
 		"files": [
-			"helpers/functions.php"
+			"src/helpers/functions.php"
 		]
 	},
     "config": {

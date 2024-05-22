@@ -10,6 +10,7 @@
 doc/**/*.txt
 
 # ignore directory
+/bin/
 /config/
 /upload/
 /vendor/
