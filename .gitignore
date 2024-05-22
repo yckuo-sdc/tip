@@ -1,14 +1,3 @@
-# example 
-# 不要追蹤檔名為 .a 結尾的檔案
-*.a
-# 但是要追蹤 lib.a，即使上方已指定忽略所有的 .a 檔案
-!lib.a
-# 只忽略根目錄下的 TODO 檔案。 不包含子目錄下的 TODO
-/TODO
-
-# ignore all .txt files in the doc/ directory
-doc/**/*.txt
-
 # ignore directory
 /bin/
 /config/
