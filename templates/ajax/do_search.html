@@ -5,7 +5,7 @@
   <div class="title">
     <i class="dropdown icon"></i>
     Shodan
-    <div class="ui right floated label">{{ intel_results.shodan.count }}</div>
+    <div class="ui label">{{ intel_results.shodan.count }}</div>
   </div>
   <div class="content">
     <p style="white-space: pre-wrap">{{ intel_results.shodan.data|json_encode(constant('JSON_PRETTY_PRINT') b-or constant('JSON_UNESCAPED_SLASHES')) }}</p>
@@ -13,25 +13,25 @@
   <div class="title">
     <i class="dropdown icon"></i>
     VirusTotal
-    <div class="ui right floated label">0</div>
+    <div class="ui label">0</div>
   </div>
   <div class="content">
-    <p>The description for VirusTotal.</p>
+    <p>The results for VirusTotal.</p>
   </div>
   <div class="title">
     <i class="dropdown icon"></i>
     Censys
-    <div class="ui right floated label">0</div>
+    <div class="ui label">0</div>
   </div>
   <div class="content">
-    <p>The description for Censys.</p>
+    <p>The results for Censys.</p>
   </div>
   <div class="title">
     <i class="dropdown icon"></i>
     Mandiant
-    <div class="ui right floated label">0</div>
+    <div class="ui label">0</div>
   </div>
   <div class="content">
-    <p>The description for Mandiant.</p>
+    <p>The results for Mandiant.</p>
   </div>
 </div>
