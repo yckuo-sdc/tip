@@ -1,2 +1,2 @@
-![GitHub Logo](images/logo.png)
+![GitHub Logo](public/images/logo.png)
 # Threat Intelligence Portal
