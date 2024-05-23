@@ -3,6 +3,7 @@
 class Database
 {
     private static $instance;
+
     private function __construct()
     {
         // 使用 private 建構子避免在外面被意外地初始化
@@ -12,10 +13,10 @@ class Database
     {
         if (!isset(self::$instance)) {
             self::$instance = new DatabaseAccessObject(
-                MySQL::HOST,
-                MySQL::USERNAME,
-                MySQL::PASSWORD,
-                MySQL::DATABASE
+                $_ENV['DB_HOST'],
+                $_ENV['DB_USERNAME'],
+                $_ENV['DB_PASSWORD'],
+                $_ENV['DB_DATABASE'],
             );
         }
     }

@@ -10,8 +10,8 @@ class IntelligenceAdapter
      */
     public function __construct()
     {
-        $this->host = Intelligence::HOST;
-        $this->token = Intelligence::TOKEN;
+        $this->host = $_ENV['Intelligence_HOST'];
+        $this->token = $_ENV['Intelligence_TOKEN'];
         if (is_null($this->token)) {
             exit;
         }

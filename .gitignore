@@ -1,6 +1,5 @@
 # ignore directory
 bin/
-config/
 upload/
 vendor/
 node_modules/
