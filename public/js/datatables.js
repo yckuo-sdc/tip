@@ -1,24 +1,37 @@
+/* Encoding HTML content */
+function encodeHTML(str) {
+        var div = document.createElement('div');
+        div.appendChild(document.createTextNode(str));
+        return div.innerHTML;
+}
 /* Formatting function for row details - modify as you need */
 function format ( d ) {
     // `d` is the original data object for the row
-    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-        '<tr>'+
-            '<td>Tel:</td>'+
-            '<td>'+d.tel+'</td>'+
-        '</tr>'+
-        '<tr>'+
-            '<td>Mail:</td>'+
-            '<td>'+d.mail+'</td>'+
-        '</tr>'+
-        '<tr>'+
-            '<td>Disabled at:</td>'+
-            '<td>'+d.disabled_at+'</td>'+
-        '</tr>'+
-        '<tr>'+
-            '<td>Shutdown at:</td>'+
-            '<td>'+d.shut_at+'</td>'+
-        '</tr>'+
+    let htmlString = '<table cellpadding="5" cellspacing="0" border="0">' +
+        '<tr>' + 
+            '<td>Data:</td>' + 
+            '<td>' + encodeHTML(d.Data) + '</td>'+
+        '</tr>' +
+        '<tr>' + 
+            '<td>Department:</td>' + 
+            '<td>' + d.DEP + '</td>'+
+        '</tr>' +
+        '<tr>' + 
+            '<td>Field:</td>' + 
+            '<td>' + d.Field + '</td>'+
+        '</tr>' +
+        '<tr>' + 
+            '<td>Class:</td>' + 
+            '<td>' + d.Class + '</td>'+
+        '</tr>' +
     '</table>';
+
+    return htmlString;
+}
+
+function getData ( d ) {
+    // `d` is the original data object for the row
+    return  d.description;
 }
 
 $(document).ready(function() {
@@ -34,7 +47,7 @@ $(document).ready(function() {
     var datatable = $('#example_table').DataTable( {
         processing: true,
         //serverSide: true,
-        ajax: '/ajax/tndev/',
+        ajax: '/ajax/fetch_gsn_asset/',
         dom: 'Bfrtip',
         buttons: [
            'excel',
@@ -51,72 +64,14 @@ $(document).ready(function() {
                 orderable: false,
                 defaultContent: '<i class="green plus circle icon"></i>',
             },
-            { data: 'department' },
-            { data: 'section' },
-            {
-				data: 'ip',
-				render: function(data, type, row, meta) {
-                    var render_data = "";
-                    if (data) {
-                        var ip_array = data.split(",");
-                        ip_array.forEach(function(item) {
-                           render_data += "<p>" + "<div class='ui basic grey label'>" + item + "</div>" + "</p>";
-                        });
-                    }
-                    return render_data;
-                }
-           	}, 
-            { data: 'name' },
-            { data: 'type' },
-            { data: 'description' },
-            { data: 'owner' },
-            { data: 
-                'antivirus', 
-				render: function(data, type, row, meta) {
-                    var render_data = data;
-                    var label = data;
-                    if (data === "1") {
-                        render_data = "<div class='ui red circular label'>" + label + "</div>";
-                    } else {
-                        render_data = "-";
-                    }
-                    return render_data;
-                }
-            },
-            { data: 
-                'edr_crowdstrike_concat',
-				render: function(data, type, row, meta) {
-                    var render_data = data;
-                    var label = data;
-                    var sections = data.split(',');
-                    var flag = sections[0];
-                    var unreported_day = sections[1];
-
-                    if (flag === "1") {
-                        render_data = "<div class='ui orange circular label'>" + flag + "</div>";
-                        render_data += "<div class='ui circular label'><i class='eye slash icon'></i>" + unreported_day + "</div>";
-                    } 
-                    else {
-                        render_data = "-";
-                    }
-                    return render_data;
-                }
-
-            },
-            { data: 
-                'gcb',
-				render: function(data, type, row, meta) {
-                    var render_data = data;
-                    var label = data;
-                    if (data === "1") {
-                        render_data = "<div class='ui olive circular label'>" + label + "</div>";
-                    } else {
-                        render_data = "-";
-                    }
-                    return render_data;
-                }
-            },
-            { data: 'shut_at' },
+            { data: 'Update_Month' },
+            { data: 'ACC' },
+            { data: 'Hostname' },
+            { data: 'IP' },
+            { data: 'Port' },
+            { data: 'Scan_Module' },
+            { data: 'Data_Source' },
+            { data: 'Data' },
         ], 
 		columnDefs: [
 			{
@@ -124,23 +79,19 @@ $(document).ready(function() {
 				width: "1%",
 			},
 			{
-				targets: 3,
-				width: "10%",
-			},
-            {
-                target: 11,
+				targets: 8,
                 visible: false,
-            }
-		],
+			},
+        ],
         order: [
-            [1, 'asc'],
-            [2, 'asc'],
-            [3, 'asc'],
+            [1, 'desc'],
+            [2, 'desc'],
+            [3, 'desc'],
         ],
         initComplete: function () {
-            // Apply the search
-            this.api().columns().every( function () {
-                var that = this;
+            // Apply column searching (text inputs)
+            this.api().columns([1, 2, 3, 4, 5, 6, 7]).every( function () {
+                let that = this;
  
                 $( 'input', this.footer() ).on( 'keyup change clear', function () {
                     if ( that.search() !== this.value ) {
@@ -149,6 +100,7 @@ $(document).ready(function() {
                             .draw();
                     }
                 } );
+
             } );
 
         },
@@ -174,33 +126,4 @@ $(document).ready(function() {
         }
     } );
 
-	// Add event listener for removing and adding shut hosts
-	$('input[name="include_shutdown_checkbox"]').click(function () {
-        if ($(this).prop("checked")) {
-			datatable
-                .column(12)
-                .search("")
-                .draw();
-        } else {
-			datatable
-                .column(12)
-                .search("^.{0}$", true, false)
-                .draw();
-        }
-    });
-
-	// Add event listener for removing and adding shut hosts
-	$('input[name="server_only_checkbox"]').click(function () {
-        if ($(this).prop("checked")) {
-			datatable
-                .column(5)
-                .search("SV")
-                .draw();
-        } else {
-			datatable
-                .column(5)
-                .search(".*", true, false)
-                .draw();
-        }
-    });
 });

@@ -652,6 +652,10 @@ div.header a {
   padding-top: 2em;
 }
 
+.ui.menu.fixed {
+    z-index: 500; !important
+}
+
 @media only screen and (min-width: 700px) {
   #example .fixed.main.menu {
     display: none;
