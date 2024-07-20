@@ -6,7 +6,7 @@
         <div class="sub-content show">
           <div class="post search">
             {{ route.createBreadcrumbs(' &gt; ')|raw }}
-            <h2 class="ui dividing header">Search Portal</h2>
+            <h2 class="ui dividing header">Search</h2>
             <div class="post_cell">
               <form class="ui form" action="" method="post">
                 <div class="field">
@@ -26,6 +26,7 @@
                 </div>
               </form>
               <p></p>
+              {{ flash|raw }}
               <div class="record_content"></div>
             </div>
           </div>

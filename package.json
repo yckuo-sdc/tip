@@ -6,17 +6,21 @@
   "dependencies": {
     "chart.js": "^4.4.3",
     "datatables.net-buttons": "^3.0.2",
+    "datatables.net-buttons-dt": "^3.0.2",
     "datatables.net-dt": "^2.0.8",
     "jquery": "^3.7.1",
-    "jquery-tablesort": "^0.0.11"
+    "jquery-tablesort": "^0.0.11",
+    "jszip": "^3.10.1"
   },
   "scripts": {
     "copy-jquery-tablesort": "mkdir -p public/assets/jquery-tablesort && cp -r node_modules/jquery-tablesort/* public/assets/jquery-tablesort/",
     "copy-jquery": "mkdir -p public/assets/jquery && cp -r node_modules/jquery/dist/* public/assets/jquery/",
     "copy-semantic": "mkdir -p public/assets/semantic &&cp -r node_modules/semantic/* public/assets/semantic/",
     "copy-chart.js": "mkdir -p public/assets/chart.js &&cp -r node_modules/chart.js/* public/assets/chart.js/",
+    "copy-jszip": "mkdir -p public/assets/jszip &&cp -r node_modules/jszip/* public/assets/jszip/",
     "copy-datatables.net": "mkdir -p public/assets/datatables.net &&cp -r node_modules/datatables.net/* public/assets/datatables.net/",
     "copy-datatables.net-dt": "mkdir -p public/assets/datatables.net-dt &&cp -r node_modules/datatables.net-dt/* public/assets/datatables.net-dt/",
-    "copy-datatables.net-buttons": "mkdir -p public/assets/datatables.net-buttons &&cp -r node_modules/datatables.net-buttons/* public/assets/datatables.net-buttons/"
+    "copy-datatables.net-buttons": "mkdir -p public/assets/datatables.net-buttons &&cp -r node_modules/datatables.net-buttons/* public/assets/datatables.net-buttons/",
+    "copy-datatables.net-buttons-dt": "mkdir -p public/assets/datatables.net-buttons-dt &&cp -r node_modules/datatables.net-buttons-dt/* public/assets/datatables.net-buttons-dt/"
   }
 }

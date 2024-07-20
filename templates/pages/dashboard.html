@@ -7,6 +7,15 @@
                 <div class="post">
                     {{ route.createBreadcrumbs(' &gt; ')|raw }}
                     <h2 class="ui dividing header">Attack Surface Management</h2>
+                    <form class="ui form" action="/do_search" method="post">
+                      <div class="item">
+                         <div class="ui action left icon input">
+                           <i class="search icon"></i>
+                           <input type="text" name="query" placeholder="Search" />
+                           <button type="submit" class="ui button">Submit</button>
+                         </div>
+                      </div>
+                    </form>
                     <div id="map"></div>
                     <div class="post_cell">
                         <div class="ui grid stackable padded">
