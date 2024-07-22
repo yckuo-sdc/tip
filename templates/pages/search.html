@@ -8,7 +8,7 @@
             {{ route.createBreadcrumbs(' &gt; ')|raw }}
             <h2 class="ui dividing header">Search</h2>
             <div class="post_cell">
-              <form class="ui form" action="" method="post">
+              <form class="ui form" action="/do_search" method="post">
                 <div class="field">
                   <label>關鍵字</label>
                   <div class="ui input">
@@ -21,7 +21,7 @@
                   </div>
                 </div>
                 <div class="field">
-                  <input type="submit" class="ui button" value="搜尋" />
+                  <button type="submit" class="ui button">Submit</button>
                   <div class="ui centered inline loader"></div>
                 </div>
               </form>

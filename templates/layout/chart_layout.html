@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    {{ parent() }}
+    <script src="/js/leaflet.js"></script>
+    <script src="/js/chart.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="ui vertical inverted sidebar menu left" id="toc">
+      {% include 'partials/sidebar.html' %}
+    </div>
+    {% include 'partials/nav.html' %}
+    <div class="no_pusher">
+      <div class="ui fixed inverted horizontal menu">
+        <div class="ui container">{% include 'partials/sidebar.html' %}</div>
+      </div>
+
+      <div class="ui container">
+        {% block page_content %}{% endblock %}
+      </div>
+     {% block footer %}
+        {% include 'partials/footer.html' %}
+      {% endblock %}
+    </div>
+{% endblock %}

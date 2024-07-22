@@ -352,11 +352,17 @@ $(document).ready(function () {
     vul_query_ajax(parameter);
   });
 
+  /*
   $(".post.search form").on("submit", function (e) {
     var parameter = { type: "search" };
+    var parameter = {
+      type: "search",
+      source: "form",
+    };
     do_search_ajax(parameter);
     e.preventDefault();
   });
+  */
 
   // collapse action
   $(".post.search .record_content").on("click", "div.button", function () {
@@ -795,17 +801,28 @@ function ips_query_pagination_ajax(data_array) {
 }
 
 function do_search_ajax(parameter) {
-  var type = parameter.type;
-  var selector = ".post." + type + " ";
+  let type = parameter.type;
+  let source = parameter.source;
+  let selector = ".post." + type + " ";
+  let data;
 
-  console.log($(selector + "form").serializeArray());
+  console.log(source)
+
+  if (source == "form") {
+    data = $(selector + "form").serializeArray();
+  } else if (source == "url") {
+    let query = parameter.query;
+    data = [{"name": "query", "value": query}];
+    $(selector).find("input[name='query']").val(query);
+  }
+
   $(selector + ".ui.inline.loader").addClass("active");
   $.ajax({
     url: "/ajax/do_search/",
     cache: false,
     dataType: "html",
     type: "POST",
-    data: $(selector + "form").serializeArray(),
+    data: data,
   })
     .done(function (data) {
       $(selector + ".ui.inline.loader").removeClass("active");
@@ -834,7 +851,6 @@ function fetch_data_ajax(type) {
       ajax_check_user_logged_out(jqXHR);
     });
 }
-
 
 // insert values form database into form inputs
 function event_edit_ajax(id, action, category) {
@@ -932,75 +948,24 @@ function pageSwitch() {
   var routerParameter = getRouterParameter();
   var mainpage = routerParameter.mainpage;
   var subpage = routerParameter.subpage;
-  var page = routerParameter.page;
-  var tab = routerParameter.tab;
-  var tabIndex = tab - 1;
-
-  var queryTypes = ["event", "ncert", "contact", "client"];
-  var clientTypes = ["drip", "gcb", "wsus", "antivirus", "edr"];
-  var networkTypes = ["yonghua", "minjhih", "idc", "intrayonghua"];
-  var queryTypesIndex = queryTypes.indexOf(subpage);
+  var query = routerParameter.query;
 
   switch (true) {
-    // load default query
-    case mainpage == "query" && subpage == "":
+    case mainpage == "nics" && subpage == "search":
+      if (query === "") {
+        return;
+      }
       var parameter = {
-        type: queryTypes[0],
-        ap: "html",
-        page: page,
-        partial: false,
+        type: "search",
+        source: "url",
+        query: query,
       };
-      query_ajax(parameter);
-      break;
-    // load query
-    case mainpage == "query" && queryTypesIndex >= 0 && queryTypesIndex <= 2:
-      var parameter = { type: subpage, ap: "html", page: page, partial: false };
-      query_ajax(parameter);
-      break;
-    // load query & client
-    case mainpage == "query" && queryTypesIndex == 3:
-      clientTypes.forEach(function (item) {
-        var parameter = { type: item, ap: "html", page: page, partial: false };
-        query_ajax(parameter);
-      });
-      break;
-    // load vul query
-    case mainpage == "vul" && subpage == "search":
-      var parameter = {
-        type: "scanResult",
-        ap: "html",
-        page: page,
-        partial: false,
-      };
-      vul_query_ajax(parameter);
-      break;
-    // load ips query
-    case mainpage == "network" && ["log", ""].includes(subpage):
-      networkTypes.forEach(function (item, index) {
-        if (index === tabIndex) {
-          console.log(index);
-          var parameter = { type: item, page: page, partial: false };
-        } else {
-          var parameter = { type: item, page: 1, partial: false };
-        }
-        ips_query_ajax(parameter);
-      });
-      break;
-    // load ldap tree
-    case mainpage == "tool" && subpage == "ldap":
-      //ldap_computers_ajax();
+      do_search_ajax(parameter);
       break;
     default:
       break;
   }
 
-  var num = tab - 1;
-  var title = $(".tabular.menu, .pointing.menu").find(".item")[num];
-  var content = $(".ui.attached.segment").find(".tab-content")[num];
-  $(".tabular.menu .item, .pointing.menu .item").removeClass("active");
-  $(title).addClass("active");
-  $(".ui.attached.segment .tab-content").removeClass("show").hide();
-  $(content).addClass("show").show();
 }
 
 function getRouterParameter() {
@@ -1009,9 +974,9 @@ function getRouterParameter() {
   var mainpage = pathArray[1] !== undefined ? pathArray[1] : "info";
   var subpage = pathArray[2] !== undefined ? pathArray[2] : "";
   var thirdpage = pathArray[3] !== undefined ? pathArray[3] : "";
+  var query = getParameterByName("query", url) != null ? getParameterByName("query", url) : "";
   var page = 1;
-  var tab =
-    getParameterByName("tab", url) != null ? getParameterByName("tab", url) : 1;
+  var tab = getParameterByName("tab", url) != null ? getParameterByName("tab", url) : 1;
 
   if (thirdpage == "pages" && pathArray[4] !== undefined) {
     page = pathArray[4];
@@ -1020,6 +985,7 @@ function getRouterParameter() {
   var routerParameter = {};
   routerParameter["mainpage"] = mainpage;
   routerParameter["subpage"] = subpage;
+  routerParameter["query"] = query
   routerParameter["page"] = page;
   routerParameter["tab"] = tab;
 

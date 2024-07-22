@@ -2,17 +2,16 @@
 
 // Sanitizes data and converts strings to UTF-8 (if available), according to the provided field whitelist
 $whitelist = array("query");
-$_POST = $gump->sanitize($_POST, $whitelist);
+$params = $gump->sanitize($_POST, $whitelist);
 
-foreach ($_POST as $postKey => $val) {
-    $$postKey = $val;
-}
-
-if (empty($query)) {
+if (empty($params)) {
     echo "No input";
     return 0;
 }
 
+foreach ($params as $key => $val) {
+    $$key = $val;
+}
 
 $intelSources = ['shodan'];
 $intel = new IntelligenceAdapter();
