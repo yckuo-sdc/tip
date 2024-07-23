@@ -14,5 +14,6 @@ $host = $_SERVER['HTTP_HOST'];
 $base_url = $protocol . $host . "/nics/search/";
 
 $url_with_params = $base_url . '?' . http_build_query($params);
+echo $url_with_params;
 
 header("Location: " . $url_with_params);

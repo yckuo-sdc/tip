@@ -3,7 +3,6 @@
 // Sanitizes data and converts strings to UTF-8 (if available), according to the provided field whitelist
 $whitelist = array("query");
 $params = $gump->sanitize($_POST, $whitelist);
-
 if (empty($params)) {
     echo "No input";
     return 0;

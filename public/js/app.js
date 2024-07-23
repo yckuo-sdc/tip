@@ -475,6 +475,10 @@ $(document).ready(function () {
 });
 
 /****** Custom Functions ******/
+function decodeHTML(str) {
+  let decodedString = $('<textarea/>').html(str).text();
+  return decodedString;
+}
 
 function query_ajax(parameter) {
   var type = parameter.type;
@@ -813,7 +817,7 @@ function do_search_ajax(parameter) {
   } else if (source == "url") {
     let query = parameter.query;
     data = [{"name": "query", "value": query}];
-    $(selector).find("input[name='query']").val(query);
+    $(selector).find("input[name='query']").val(decodeHTML(query));
   }
 
   $(selector + ".ui.inline.loader").addClass("active");
