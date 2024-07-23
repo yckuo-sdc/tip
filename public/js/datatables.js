@@ -9,7 +9,7 @@ function format(d) {
   // `d` is the original data object for the row
   let htmlString =
     '<table cellpadding="5" cellspacing="0" border="0">' +
-    "<tr>" +
+    "<tr style='overflow-wrap: anywhere'>" +
     "<td>Data:</td>" +
     "<td>" +
     encodeHTML(d.Data) +

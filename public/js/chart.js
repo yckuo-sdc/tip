@@ -25,7 +25,7 @@ function chartjs_ajax() {
                         labels: data.topProduct.map(row => row.name),
                         datasets: [
                             {
-                                label: 'Class Rank',
+                                label: 'Top Products',
                                 data: data.topProduct.map(row => row.count)
                             }
                         ]
@@ -41,7 +41,7 @@ function chartjs_ajax() {
                         labels: data.topPort.map(row => row.name),
                         datasets: [
                             {
-                                label: 'Class Rank',
+                                label: 'Top Ports',
                                 data: data.topPort.map(row => row.count)
                             }
                         ]

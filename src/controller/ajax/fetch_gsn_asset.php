@@ -3,10 +3,25 @@ $params = [
     #'scroll' => '5m', // period to retain the search context
     'index' => 'gsn_asset*',
     'from' => 0,
-    'size' => 5000,
+    'size' => 10000,
     'body'  => [
         'query' => [
-            'match_all' => new stdClass() // Match all query
+            'bool' => [
+                #'match_all' => new stdClass(),
+                'filter' => [
+                    'range' => [
+                        'Update_Month' => [
+                            'gte' => 'now-60d/d',
+                            'lte' => 'now/d'
+                        ]
+                    ]
+                ]
+            ]
+        ],
+        'sort' => [
+            '_id' => [
+                'order' => 'desc'
+            ]
         ]
     ]
 ];
