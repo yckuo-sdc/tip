@@ -12,7 +12,7 @@ foreach ($params as $key => $val) {
     $$key = $val;
 }
 
-$intelSources = ['shodan'];
+$intelSources = ['shodan', 'vt'];
 $intel = new IntelligenceAdapter();
 
 $intelResults = array();

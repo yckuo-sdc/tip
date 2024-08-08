@@ -13,10 +13,10 @@
   <div class="title">
     <i class="dropdown icon"></i>
     VirusTotal
-    <div class="ui label">0</div>
+    <div class="ui label">{{ intel_results.vt.count }}</div>
   </div>
   <div class="content">
-    <p>The results for VirusTotal.</p>
+    <p style="white-space: pre-wrap">{{ intel_results.vt.data|json_encode(constant('JSON_PRETTY_PRINT') b-or constant('JSON_UNESCAPED_SLASHES')) }}</p>
   </div>
   <div class="title">
     <i class="dropdown icon"></i>

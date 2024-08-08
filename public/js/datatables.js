@@ -53,7 +53,8 @@ $(document).ready(function () {
   // DataTable
   var datatable = $("#example_table").DataTable({
     processing: true,
-    ajax: "/ajax/fetch_gsn_asset/",
+    serverSide: true,
+    ajax: "/ajax/ssp/",
     dom: "Bfrtip",
     buttons: [
       "excel",
@@ -75,6 +76,7 @@ $(document).ready(function () {
       { data: "Hostname" },
       { data: "IP" },
       { data: "Port" },
+      { data: 'Product' },
       { data: "Scan_Module" },
       { data: "Data_Source" },
       { data: "Data" },
@@ -85,7 +87,7 @@ $(document).ready(function () {
         width: "1%",
       },
       {
-        targets: 8,
+        targets: 9,
         visible: false,
       },
     ],
@@ -97,7 +99,7 @@ $(document).ready(function () {
     initComplete: function () {
       // Apply column searching (text inputs)
       this.api()
-        .columns([1, 2, 3, 4, 5, 6, 7])
+        .columns([1, 2, 3, 4, 5, 6, 7, 8])
         .every(function () {
           let that = this;
 

@@ -6,7 +6,7 @@ if(!$userValidator->isLogin()) {
     return;
 }
 
-$userAction->logger('pageSwitch', $_SERVER['REQUEST_URI']);
+//$userAction->logger('pageSwitch', $_SERVER['REQUEST_URI']);
 
 $admin_only_pages = array("upload_contact");
 $subpage = strtolower($route->getParameter(2));

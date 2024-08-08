@@ -12,7 +12,6 @@ function chartjs_ajax() {
 		 error: function(xhr) {
 			 console.log('Ajax failed');
 		 },success: function(data) {
-			console.log(data);
 			var tmp_data, len;
 			var classesArray = [];
             
