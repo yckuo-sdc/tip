@@ -30,7 +30,7 @@
 
 #menu {
   height: auto;
-  text-align: center; /*蝵桐葉*/
+  text-align: center;
 }
 
 #menu a {
@@ -653,7 +653,11 @@ div.header a {
 }
 
 .ui.menu.fixed {
-    z-index: 500; !important
+    z-index: 1000; !important
+}
+
+#example .ui.left.sidebar {
+    z-index: 1001;
 }
 
 @media only screen and (min-width: 700px) {

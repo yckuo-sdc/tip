@@ -65,10 +65,16 @@ class DataTableElasticsearch
                 'bool' => [
                     'must' => [
                         [
-                            'query_string' => [
-                                'query' => "*" . $searchValue . "*",
+                            #'query_string' => [
+                            #    'query' => "*" . $searchValue . "*",
+                            #    'fields' => $globalSearchColumns,
+                            #    'analyze_wildcard' => true,
+                            #]
+                            'multi_match' => [
+                                'query' => $searchValue,
+                                'type' => "best_fields",
                                 'fields' => $globalSearchColumns,
-                                'analyze_wildcard' => true,
+                                'lenient' => True
                             ]
                         ]
                     ]
@@ -80,7 +86,6 @@ class DataTableElasticsearch
         foreach ($request['columns'] as $col_index => $column) {
             if (!empty($column['search']['value']) && $column['searchable'] === 'true') {
                 $query['body']['query']['bool']['must'][] = [
-                    //'match' => [$column['data'] => $column['search']['value']]
                     'match' => [$sortableColumns[$col_index] => $column['search']['value']]
                 ];
             }

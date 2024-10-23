@@ -20,6 +20,17 @@ $globalSearchColumns = [
     'Data.keyword',
 ];
 
+$globalSearchColumns = [
+    'ACC',
+    'Hostname',
+    'IP',
+    'Port',
+    'Product',
+    'Scan_Module',
+    'Data_Source',
+    'Data',
+];
+
 $sortableColumns = [
     //0 => null,
     1 => 'Update_Month',
