@@ -430,6 +430,37 @@ div.header a {
   box-sizing: border-box;
 }
 
+/* Hide nested objects */
+.nested { 
+    margin-left: 20px; 
+    display: none; 
+} 
+
+.string-value.color {
+    color: #5f9838;
+}
+
+.number-value.color {
+    color: #d84d3d;
+}
+
+.null-value.color {
+    color: #d78759;
+}
+
+.boolean-value.color {
+    color: #f2a20e;
+}
+
+span.bracket {
+    display: none;
+    color: #aaaaaa;
+}
+
+span.bracket.show {
+    display: inline;
+}
+
 /*media only screen and (min-width: 400px) and (max-width: 700px) and (orientation: portrait){*/
 @media screen and (orientation: portrait),
   screen and (min-width: 350px) and (max-width: 700px) {

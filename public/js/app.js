@@ -49,6 +49,47 @@ $(document).ready(function () {
     );
   });
 
+  // search php's component action
+  $(".post.search .record_content").on("click", ".toggle-button", function () {
+    const nested = $(this).siblings(".nested");
+    nested.slideToggle();
+    
+    const icon = $(this).children("i")
+    const span = $(this).siblings("strong").children("span")
+    if (icon.hasClass('plus')) {
+        icon.removeClass('plus').addClass('minus');
+        span.removeClass('show');
+    } else {
+        icon.removeClass('minus').addClass('plus');
+        span.addClass('show');
+    }
+
+  });
+
+  // search php's component action
+  $(".post.search .record_content").on("click", "button.expand_all", function () {
+      console.log('expand all');
+      const accordion = $(this).siblings(".accordion");
+      const nesteds = accordion.find('.nested').show();
+      nesteds.show();
+      const icons = accordion.find('i.icon')
+      icons.removeClass('plus').addClass('minus');
+      const spans = accordion.find('span.bracket');
+      spans.removeClass('show')
+  });
+
+  // search php's component action
+  $(".post.search .record_content").on("click", "button.collapse_all", function () {
+      console.log('collapse all');
+      const accordion = $(this).siblings(".accordion");
+      const nesteds = accordion.find('.nested');
+      nesteds.hide();
+      const icons = accordion.find('i.icon')
+      icons.removeClass('minus').addClass('plus');
+      const spans = accordion.find('span.bracket');
+      spans.addClass('show')
+  });
+
   // query.php's component action
   $(
     ".post.event .record_content, .post.ncert .record_content, .post.contact .record_content, .post.client",
@@ -476,7 +517,7 @@ $(document).ready(function () {
 
 /****** Custom Functions ******/
 function decodeHTML(str) {
-  let decodedString = $('<textarea/>').html(str).text();
+  let decodedString = $("<textarea/>").html(str).text();
   return decodedString;
 }
 
@@ -810,13 +851,13 @@ function do_search_ajax(parameter) {
   let selector = ".post." + type + " ";
   let data;
 
-  console.log(source)
+  console.log(source);
 
   if (source == "form") {
     data = $(selector + "form").serializeArray();
   } else if (source == "url") {
     let query = parameter.query;
-    data = [{"name": "query", "value": query}];
+    data = [{ name: "query", value: query }];
     $(selector).find("input[name='query']").val(decodeHTML(query));
   }
 
@@ -969,7 +1010,6 @@ function pageSwitch() {
     default:
       break;
   }
-
 }
 
 function getRouterParameter() {
@@ -978,9 +1018,13 @@ function getRouterParameter() {
   var mainpage = pathArray[1] !== undefined ? pathArray[1] : "info";
   var subpage = pathArray[2] !== undefined ? pathArray[2] : "";
   var thirdpage = pathArray[3] !== undefined ? pathArray[3] : "";
-  var query = getParameterByName("query", url) != null ? getParameterByName("query", url) : "";
+  var query =
+    getParameterByName("query", url) != null
+      ? getParameterByName("query", url)
+      : "";
   var page = 1;
-  var tab = getParameterByName("tab", url) != null ? getParameterByName("tab", url) : 1;
+  var tab =
+    getParameterByName("tab", url) != null ? getParameterByName("tab", url) : 1;
 
   if (thirdpage == "pages" && pathArray[4] !== undefined) {
     page = pathArray[4];
@@ -989,7 +1033,7 @@ function getRouterParameter() {
   var routerParameter = {};
   routerParameter["mainpage"] = mainpage;
   routerParameter["subpage"] = subpage;
-  routerParameter["query"] = query
+  routerParameter["query"] = query;
   routerParameter["page"] = page;
   routerParameter["tab"] = tab;
 

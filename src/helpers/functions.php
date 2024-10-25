@@ -349,3 +349,71 @@ function getDaysAfterToday($target_time, $format = 'Y-m-d')
     $interval_days = $interval->format('%R%a');
     return $interval_days;
 }
+
+// Recursive function to render JSON in HTML with collapsible/expandable structure
+function renderJSON($obj)
+{
+    $html = "";
+
+    if (empty($obj)) {
+        $html .= "No Information.";
+        return $html;
+    }
+
+    foreach ($obj as $key => $value) {
+        if (is_array($value)) {
+
+            // Handle Arrays
+            $isAssociative = count(array_filter(array_keys($value), 'is_string')) > 0;
+
+            if ($isAssociative) {
+                // Handle Associative Arrays
+                $fieldNumber = count(array_keys($value));
+                $html .= "<div>
+                            <span class='toggle-button'><i class='plus square outline icon'></i></span>
+                            <strong>{$key}: <span class='curly bracket show'>{ /* {$fieldNumber} fileds */ }</span></strong>
+                            <div class='nested' style='display:none;'>" . renderJSON($value) . "</div>
+                         </div>";
+            } else {
+                // Handle Indexed Arrays
+                $itemNumber = count($value);
+
+                if ($itemNumber == 0) {
+                    $html .= "<div>
+                                <strong>{$key}: <span class='square bracket show'>[ ]</span></strong>
+                              </div>";
+                } else {
+                    $html .= "<div>
+                                <span class='toggle-button'><i class='plus square outline icon'></i></span>
+                                <strong>{$key}: <span class='square bracket show'>[ /* {$itemNumber} items */ ]</span></strong>
+                                <div class='nested' style='display:none;'>" . renderJSON($value) . "</div>
+                              </div>";
+                }
+            }
+
+        } else {
+            // Handle Primitive Values (string, number, etc.)
+            $colorClass = getColorClass($value);
+            $html .= "<div><strong>{$key}:</strong> <span class='$colorClass'>" . htmlspecialchars(json_encode($value)) . "</span></div>";
+        }
+    }
+
+    return $html;
+}
+
+function getColorClass($value)
+{
+    switch (gettype($value)) {
+        case "string":
+            return "string-value color";
+        case "integer":
+        case "double":
+            return "number-value color";
+        case "boolean":
+            return "boolean-value color";
+        case "NULL":
+            return "null-value color";
+        default:
+            return "default-value color";
+    }
+}
