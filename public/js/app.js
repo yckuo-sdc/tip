@@ -68,7 +68,6 @@ $(document).ready(function () {
 
   // search php's component action
   $(".post.search .record_content").on("click", "button.expand_all", function () {
-      console.log('expand all');
       const accordion = $(this).siblings(".accordion");
       const nesteds = accordion.find('.nested').show();
       nesteds.show();
@@ -80,7 +79,6 @@ $(document).ready(function () {
 
   // search php's component action
   $(".post.search .record_content").on("click", "button.collapse_all", function () {
-      console.log('collapse all');
       const accordion = $(this).siblings(".accordion");
       const nesteds = accordion.find('.nested');
       nesteds.hide();
