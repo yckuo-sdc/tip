@@ -19,8 +19,7 @@
     <div class="ui label">{{ intel_results.vt.count }}</div>
   </div>
   <div class="content">
-      <!--<p style="white-space: pre-wrap">{{ intel_results.vt.data|json_encode(constant('JSON_PRETTY_PRINT') b-or constant('JSON_UNESCAPED_SLASHES')) }}</p>-->
-    <p style="white-space: pre-wrap">{{ intel_results.vt.rendered_data|raw }}</p>
+    <blockquote style="overflow-wrap: anywhere">{{ intel_results.vt.rendered_data|raw }}</blockquote>
   </div>
   <div class="title">
     <i class="dropdown icon"></i>
