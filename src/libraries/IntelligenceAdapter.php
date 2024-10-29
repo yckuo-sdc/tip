@@ -80,7 +80,8 @@ class IntelligenceAdapter
 
         // Check if any error occurred
         if (curl_errno($curl)) {
-            echo 'Curl error: ' . curl_error($curl);
+            echo "<div class='ui error message'>" . "Curl error: " . curl_error($curl) . "</div>";
+            exit;
         }
 
         curl_close($curl);
