@@ -6,8 +6,8 @@
 <div class="ui styled fluid accordion">
   <div class="title">
     <i class="dropdown icon"></i>
-    Shodan
-    <div class="ui label">{{ intel_results.shodan.count }}</div>
+    Shodan&nbsp&nbsp  
+    <div class="ui blue label">{{ intel_results.shodan.count }}</div>
   </div>
   <div class="content">
       <!--<p style="white-space: pre-wrap">{{ intel_results.shodan.data|json_encode(constant('JSON_PRETTY_PRINT') b-or constant('JSON_UNESCAPED_SLASHES')) }}</p>-->
@@ -15,24 +15,24 @@
   </div>
   <div class="title">
     <i class="dropdown icon"></i>
-    VirusTotal
-    <div class="ui label">{{ intel_results.vt.count }}</div>
+    VirusTotal&nbsp&nbsp 
+    <div class="ui red label">{{ intel_results.vt.count }}</div>
   </div>
   <div class="content">
     <blockquote style="overflow-wrap: anywhere">{{ intel_results.vt.rendered_data|raw }}</blockquote>
   </div>
   <div class="title">
     <i class="dropdown icon"></i>
-    Censys
-    <div class="ui label">{{ intel_results.censys.count }}</div>
+    Censys&nbsp&nbsp 
+    <div class="ui yellow label">{{ intel_results.censys.count }}</div>
   </div>
   <div class="content">
     <blockquote style="overflow-wrap: anywhere">{{ intel_results.censys.rendered_data|raw }}</blockquote>
   </div>
   <div class="title">
     <i class="dropdown icon"></i>
-    Mandiant
-    <div class="ui label">0</div>
+    Mandiant&nbsp&nbsp 
+    <div class="ui teal label">0</div>
   </div>
   <div class="content">
     <p>The results for Mandiant.</p>
