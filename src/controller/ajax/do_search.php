@@ -12,7 +12,7 @@ foreach ($params as $key => $val) {
     $$key = $val;
 }
 
-$intelSources = ['shodan', 'vt', 'censys'];
+$intelSources = ['shodan', 'vt', 'censys', 'mandiant'];
 $intel = new IntelligenceAdapter();
 
 $intelResults = array();
@@ -91,7 +91,49 @@ foreach ($intelSources as $intelSource) {
 #    ],
 #    "vt" => [
 #        "count" => 0,
-#        "data" => []
+#        "data" => [
+#            "search" => "217.69.5.95",
+#            "refer" => "https://www.virustotal.com/api/v3/ip_addresses/217.69.5.95",
+#            "tags" => [],
+#            "total_votes" => [
+#                "harmless" => 0,
+#                "malicious" => 0
+#            ],
+#            "last_analysis_stats" => [
+#                "malicious" => 2,
+#                "suspicious" => 1,
+#                "undetected" => 32,
+#                "harmless" => 59,
+#                "timeout" => 0
+#            ],
+#            "reputation" => 0,
+#            "last_analysis_date" => "2024-10-09",
+#            "resolutions" => [
+#                [
+#                    "date" => ["2022-04-29"],
+#                    "fqdn" => "prst01.par.stilverso.it",
+#                    "fqdn_last_analysis" => [
+#                        "malicious" => 0,
+#                        "suspicious" => 0,
+#                        "undetected" => 94,
+#                        "harmless" => 0,
+#                        "timeout" => 0
+#                    ]
+#                ],
+#                [
+#                    "date" => ["2022-04-29"],
+#                    "fqdn" => "was-a.par.stilverso.it",
+#                    "fqdn_last_analysis" => [
+#                        "malicious" => 0,
+#                        "suspicious" => 0,
+#                        "undetected" => 35,
+#                        "harmless" => 59,
+#                        "timeout" => 0
+#                    ]
+#                ]
+#            ],
+#            "collections" => []
+#        ]
 #    ],
 #    "censys" => [
 #        "count" => 1,
@@ -131,15 +173,17 @@ foreach ($intelSources as $intelSource) {
 #];
 
 foreach (array_keys($intelResults) as $key) {
-    $intelResults[$key]['rendered_data'] = renderJSON($intelResults[$key]['data']);
+    $intelResults[$key]['key_data'] = $intel->extractKeyData($intelResults[$key]['data'], $key);
 }
 
-
-# var_dump($intelResults);
-# echo "Raw results";
+#var_dump($intelResults);
+#echo "Raw results";
 $jsonString = json_encode($intelResults, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 $render = "<pre style='white-space: pre-wrap'>" . $jsonString . "</pre>";
 #echo $render;
-$flash->success($render);
+#$flash->success($render);
 
+foreach (array_keys($intelResults) as $key) {
+    $intelResults[$key]['rendered_data'] = $intel->renderJSON($intelResults[$key]['data']);
+}
 echo $twig->render('ajax/do_search.html', ['intel_results' => $intelResults, 'flash' => $flash]);

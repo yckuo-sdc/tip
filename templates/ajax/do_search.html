@@ -8,15 +8,36 @@
     <i class="dropdown icon"></i>
     Shodan&nbsp&nbsp  
     <div class="ui blue label">{{ intel_results.shodan.count }}</div>
+    {% for key_data in intel_results.shodan.key_data %}
+        {% if key_data.value is not empty %}
+            {% if key_data.pair_displayed %}
+                <div class="ui basic grey label"> {{ key_data.name }}
+                    <div class="detail">{{ key_data.value }}</div>
+                </div>
+            {% else %}
+                <div class="ui basic grey label">{{ key_data.value }}</div>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
   </div>
   <div class="content">
-      <!--<p style="white-space: pre-wrap">{{ intel_results.shodan.data|json_encode(constant('JSON_PRETTY_PRINT') b-or constant('JSON_UNESCAPED_SLASHES')) }}</p>-->
     <blockquote style="overflow-wrap: anywhere">{{ intel_results.shodan.rendered_data|raw }}</blockquote>
   </div>
   <div class="title">
     <i class="dropdown icon"></i>
     VirusTotal&nbsp&nbsp 
     <div class="ui red label">{{ intel_results.vt.count }}</div>
+    {% for key_data in intel_results.vt.key_data %}
+        {% if key_data is not empty %}
+            {% if key_data.pair_displayed %}
+                <div class="ui basic grey label"> {{ key_data.name }}
+                    <div class="detail">{{ key_data.value }}</div>
+                </div>
+            {% else %}
+                <div class="ui basic grey label">{{ key_data.value }}</div>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
   </div>
   <div class="content">
     <blockquote style="overflow-wrap: anywhere">{{ intel_results.vt.rendered_data|raw }}</blockquote>
@@ -32,9 +53,9 @@
   <div class="title">
     <i class="dropdown icon"></i>
     Mandiant&nbsp&nbsp 
-    <div class="ui teal label">0</div>
+    <div class="ui teal label">{{ intel_results.mandiant.count }}</div>
   </div>
   <div class="content">
-    <p>The results for Mandiant.</p>
+    <blockquote style="overflow-wrap: anywhere">{{ intel_results.mandiant.rendered_data|raw }}</blockquote>
   </div>
 </div>

@@ -30,7 +30,7 @@ class IntelligenceAdapter
      *
      * @return string $results
      */
-    public function search($query, $source = "shodan")
+    public function search($query, $source="shodan")
     {
         $url = $this->host . "/api/" . $source;
         $postField = array(
@@ -47,7 +47,109 @@ class IntelligenceAdapter
         return $results;
     }
 
+    /**
+     * @param array $jsonObj
+     *
+     * @return string $html
+     */
+    // Extract key data from JSON object
+    public function extractKeyData($obj, $source="shodan" )
+    {
+        $keyData = [];
+        if (empty($obj)) {
+            return $keyData;
+        }
 
+        $keyMap = [
+            "shodan" => [ 
+                ["field" => "ip", "pair_displayed" => False],
+                ["field" => "hostnames", "pair_displayed" => False],
+                ["field" => "country_code", "pair_displayed" => False],
+                ["field" => "org", "pair_displayed" => False],
+                ["field" => "data", "pair_displayed" => False],
+                ["field" => "tags", "pair_displayed" => False],
+            ],
+            "vt" => [
+                ["field" => "last_analysis_stats", "pair_displayed" => False],
+                ["field" => "total_votes", "pair_displayed" => False],
+                ["field" => "resolutions_count", "pair_displayed" => True],
+                ["field" => "collections_count", "pair_displayed" => True],
+            ],
+            "censys" => [],
+            "mandiant" => [],
+        ];
+
+
+        $sourceKeys = getArrayValue($keyMap, $source);
+        foreach ($sourceKeys as $sourceKey) {
+           $item = [     
+               "name" => $sourceKey["field"],
+               "value" => getArrayString($obj, $sourceKey["field"]),
+               "pair_displayed" => $sourceKey["pair_displayed"],
+           ];
+           $keyData[] = $item;
+        }
+
+        return $keyData;
+    }
+
+
+
+    /**
+     * @param array $jsonObj
+     *
+     * @return string $html
+     */
+    // Recursive function to render JSON in HTML with collapsible/expandable structure
+    public function renderJSON($obj)
+    {
+        $html = "";
+
+        if (empty($obj)) {
+            $html .= "No Information.";
+            return $html;
+        }
+
+        foreach ($obj as $key => $value) {
+            if (is_array($value)) {
+
+                // Handle Arrays
+                $isAssociative = count(array_filter(array_keys($value), 'is_string')) > 0;
+
+                if ($isAssociative) {
+                    // Handle Associative Arrays
+                    $fieldNumber = count(array_keys($value));
+                    $html .= "<div>
+                                <span class='toggle-button'><i class='plus square outline icon'></i></span>
+                                <strong>{$key}: <span class='curly bracket show'>{ /* {$fieldNumber} fileds */ }</span></strong>
+                                <div class='nested' style='display:none;'>" . renderJSON($value) . "</div>
+                             </div>";
+                } else {
+                    // Handle Indexed Arrays
+                    $itemNumber = count($value);
+
+                    if ($itemNumber == 0) {
+                        $html .= "<div>
+                                    <strong>{$key}: <span class='square bracket show'>[ ]</span></strong>
+                                  </div>";
+                    } else {
+                        $html .= "<div>
+                                    <span class='toggle-button'><i class='plus square outline icon'></i></span>
+                                    <strong>{$key}: <span class='square bracket show'>[ /* {$itemNumber} items */ ]</span></strong>
+                                    <div class='nested' style='display:none;'>" . renderJSON($value) . "</div>
+                                  </div>";
+                    }
+                }
+
+            } else {
+                // Handle Primitive Values (string, number, etc.)
+                $colorClass = $this->getColorClass($value);
+                $html .= "<div><strong>{$key}:</strong> <span class='$colorClass'>" . htmlspecialchars(json_encode($value)) . "</span></div>";
+            }
+        }
+
+        return $html;
+    }
     /**
      * @param string $url
      * @param array $postField
@@ -81,7 +183,7 @@ class IntelligenceAdapter
         // Check if any error occurred
         if (curl_errno($curl)) {
             echo "<div class='ui error message'>" . "Curl error: " . curl_error($curl) . "</div>";
-            exit;
+            //exit;
         }
 
         curl_close($curl);
@@ -98,18 +200,46 @@ class IntelligenceAdapter
     private function countObjectsInJson($jsonString)
     {
         // Decode JSON string
-        $data = json_decode($jsonString);
+        $data = json_decode($jsonString, True);
+    
 
         // Check if decoded data is an array
         if (is_array($data)) {
             // Return the count of elements in the array
+            if (array_key_exists("data_count", $data)) {
+                return $data["data_count"];
+            } 
             return count($data);
         } elseif (is_object($data)) {
             // Return 1 if the decoded data is an object
-            return 1;
+            return 0;
         } else {
             // Handle invalid JSON string
-            return -1;
+            return 0;
+        }
+    }
+
+
+    /**
+     * @param string $value
+     *
+     * @return string $colorClass
+     */
+    // count the number of objects in JSON
+    private function getColorClass($value)
+    {
+        switch (gettype($value)) {
+            case "string":
+                return "string-value color";
+            case "integer":
+            case "double":
+                return "number-value color";
+            case "boolean":
+                return "boolean-value color";
+            case "NULL":
+                return "null-value color";
+            default:
+                return "default-value color";
         }
     }
 

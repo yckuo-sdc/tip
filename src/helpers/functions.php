@@ -417,3 +417,43 @@ function getColorClass($value)
             return "default-value color";
     }
 }
+
+// Function to safely access array values with error handling
+function getArrayValue($array, $key) {
+    if (array_key_exists($key, $array)) {
+        return $array[$key];
+    }
+    return [];
+}
+
+function getArrayString($array, $key) {
+    if (array_key_exists($key, $array)) {
+        $value = $array[$key];
+
+        // If the value is an array, check if it's associative or indexed
+        if (is_array($value)) {
+            // Handle associative arrays by including keys in the output
+            if (isAssociativeArray($value)) {
+                return implode(", ", array_map(function($k, $v) {
+                    return is_array($v) ? "$k: " . getArrayString(["value" => $v], "value") : "$k: $v";
+                }, array_keys($value), $value));
+            }
+            // Handle indexed arrays without keys
+            else {
+                return implode(", ", array_map(function($item) {
+                    return is_array($item) ? getArrayString(["value" => $item], "value") : $item;
+                }, $value));
+            }
+        }
+
+        return $value;
+    }
+
+    return $key === null ? "" : [];
+}
+
+// Helper function to check if an array is associative
+function isAssociativeArray($array) {
+    return array_keys($array) !== range(0, count($array) - 1);
+}
+
